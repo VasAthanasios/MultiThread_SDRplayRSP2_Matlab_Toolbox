@@ -8,7 +8,7 @@ If you you have an issue running the MEX or you have x86 bit version follow thes
     2. Rename them as mir_sdr_api_0 & mir_sdr_api_1. 
     3. Compile the C/MEX file in Matlab with the following command, "mex sdrplay_mex.c mir_sdr_api_0.lib mir_sdr_api_1.lib"
 
-Latest .dll and .lib version can be found at https://www.sdrplay.com/downloads/
+Latest .dll and .lib version can be found at https://www.sdrplay.com/downloads/. **Drivers after 2.11.1 are not compatible with this code.**
 
 # Information
 
