@@ -1,14 +1,16 @@
-!!! Warning !!!
+# Warning
 
-This toolbox contains a precompiled x64 bit MEX for two RSP2 devices. If you you have an issue running the MEX or you have x86 bit version follow these steps:
+This toolbox contains a precompiled x64 bit MEX for two RSP2 devices. **You need to install the SDRplay_RSP_API-Windows-2.11.1.exe drivers first.**
+
+If you you have an issue running the MEX or you have x86 bit version follow these steps:
 
     1. Copy paste the .dll and .lib from \dll_lib\x86 in the same folder.
     2. Rename them as mir_sdr_api_0 & mir_sdr_api_1. 
-    2. Compile the C/MEX file in Matlab with the following command, "mex sdrplay_mex.c mir_sdr_api_0.lib mir_sdr_api_1.lib"
+    3. Compile the C/MEX file in Matlab with the following command, "mex sdrplay_mex.c mir_sdr_api_0.lib mir_sdr_api_1.lib"
 
 Latest .dll and .lib version can be found at https://www.sdrplay.com/downloads/
 
-!!! Information !!!
+# Information
 
 The SDRplayMT object is a MultiThreaded wrapper for the SDRplay library to receive directly from multiple RSP2 in matlab. It allows uninterrupted transfers without storing signals on disk intermediately.
 
