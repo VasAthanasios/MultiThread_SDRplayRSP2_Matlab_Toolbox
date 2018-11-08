@@ -25,31 +25,31 @@ BW_KHz = 5000;      % Bandwidth.
 %% SDRplay 1.
 disp('Make sure only 1 SDRplay is connected ...');
 disp('Initiating Daisy Chain, SDRplay connection!');
-MySDRplay1 = sdrplayMT(1);  % Get Set device 1
 MySDRplay1.FrequencyMHz = Fc_MHz;
-MySDRplay1.BandwidthKHz = BW_KHz;
-MySDRplay1.ExtClk(1)        % Enable clock
+MySDRplay1.BandwidthKHz = BW_KHz;MySDRplay1 = sdrplayMT(1);  % Get Set device 1
+
+MySDRplay1.ExtClk = 1;      % Enable clock
 disp('Plug in the second SDRplay and press any key!');
 pause;
 %% SDRplay 2.
 MySDRplay2 = sdrplayMT(2);  % Get Set device 2
 MySDRplay2.FrequencyMHz = Fc_MHz;
 MySDRplay2.BandwidthKHz = BW_KHz;
-MySDRplay2.ExtClk(1)        % Enable clock
+MySDRplay2.ExtClk = 1;      % Enable clock
 disp('Plug in the third SDRplay and press any key!');
 pause;
 %% SDRplay 3.
 MySDRplay3 = sdrplayMT(3);  % Get Set device 3
 MySDRplay3.FrequencyMHz = Fc_MHz;
 MySDRplay3.BandwidthKHz = BW_KHz;
-MySDRplay3.ExtClk(1)        % Enable clock
+MySDRplay3.ExtClk = 1;      % Enable clock
 disp('Plug in the fourth SDRplay and press any key!');
 pause;
 %% SDRplay 4.
 MySDRplay4 = sdrplayMT(4);  % Get Set device 4
 MySDRplay4.FrequencyMHz = Fc_MHz;
 MySDRplay4.BandwidthKHz = BW_KHz;
-MySDRplay4.ExtClk(1)        % Enable clock
+MySDRplay4.ExtClk = 1;      % Enable clock
 %% Start the streams!
 MySDRplay1.Stream;
 MySDRplay2.Stream;
@@ -71,9 +71,9 @@ data_lf = filtfilt(Filt_IF_100kHz,1,data_full);
 [~,delay_xcorr_lf_13] = Func_Tsync_Xcorr(data_lf,[1 3]);
 [~,delay_xcorr_lf_14] = Func_Tsync_Xcorr(data_lf,[1 4]);
 %% Apply the Delays!
-MySDRplay2.Delay(delay_xcorr_lf_12);
-MySDRplay3.Delay(delay_xcorr_lf_13);
-MySDRplay4.Delay(delay_xcorr_lf_14);
+MySDRplay2.Delay = delay_xcorr_lf_12;
+MySDRplay3.Delay = delay_xcorr_lf_13;
+MySDRplay4.Delay = delay_xcorr_lf_14;
 pause(1);    % Wait abit
 %% Get Data and filter it!
 data_full = MySDRplay1.GetPacket;
@@ -83,9 +83,9 @@ data_lf = filtfilt(Filt_IF_100kHz,1,data_full);
 [~,delay_fft_lf_13] = Func_Tsync_FFT(data_lf,[1 3],SR);
 [~,delay_fft_lf_14] = Func_Tsync_FFT(data_lf,[1 4],SR);
 %% Apply the delay directly
-MySDRplay2.Delay(delay_fft_lf_12);
-MySDRplay3.Delay(delay_fft_lf_13);
-MySDRplay4.Delay(delay_fft_lf_14);
+MySDRplay2.Delay = delay_fft_lf_12;
+MySDRplay3.Delay = delay_fft_lf_13;
+MySDRplay4.Delay = delay_fft_lf_14;
 pause(1);    % Wait abit
 %% Get Data and filter it!
 data_full = MySDRplay1.GetPacket;

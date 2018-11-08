@@ -43,9 +43,11 @@ classdef sdrplayMT < handle
         BandwidthKHz    % Set SDRplay BandwidthKHz, see table for details.
         IFtype          % Set SDRplay IF to be used, see specification for details.
         LNAstate        % Set SDRplay LNA state based on Grmode, see specification for details.
-        Port            % SDRplay port selection, A (default) or B.
+        Port            % Set SDRplay port, A (default) or B.
+        ExtClk          % Set SDRplay external clock state, 0 disabled, 1 enabled.
         PacketData      % SDRplay data packet dropped here.
         StreamInitNumericType='double' % Numeric type of RX samples
+        Delay           % Set SDRplay stream delay in samples.
     end
     
     properties (GetAccess=public, SetAccess=private)
@@ -62,6 +64,8 @@ classdef sdrplayMT < handle
             obj.IFtype = 0;             % Set SDRplay IF to be used, see specification for details.
             obj.LNAstate = 0;           % Set SDRplay LNA state based on Grmode, see specification for details.
             obj.Port = 'A';             % Set SDRplay Port, A (default) or B.
+            obj.ExtClk = 0;             % Set SDRplay External Clock, 0 disabled.
+            obj.Delay = 0;              % Set SDRplay stream delay in samples.
         end
 
         %% Get dev info when start
@@ -173,6 +177,15 @@ classdef sdrplayMT < handle
             end
             obj.StreamInitNumericType=t;
         end
+        %% Add delay
+        function set.Delay(obj,d)
+            if obj.StreamInit
+                sdrplayMT_mex('delay',obj.DevOpen,d);
+                obj.Delay = obj.Delay + d;
+            else
+                warning('SDRplay device not streaming!');
+            end
+        end
         %% Initializes Stream
         function Stream(obj)
             if ~isempty(obj.DevOpen)
@@ -207,9 +220,10 @@ classdef sdrplayMT < handle
            end
         end
         %% Enable Disable external clock
-        function [] = ExtClk(obj,st)
+        function set.ExtClk(obj,st)
             if ~isempty(obj.DevOpen) && (st == 0 || st == 1)
                 sdrplayMT_mex('ext_clk',obj.DevOpen,st);
+                obj.ExtClk = st;
             end
         end
         %% Get packet 
@@ -228,14 +242,7 @@ classdef sdrplayMT < handle
                 warning('SDRplay device not streaming!');
             end
         end
-        %% Add delay
-        function Delay(obj,d)
-            if obj.StreamInit
-                sdrplayMT_mex('delay',obj.DevOpen,d);
-            else
-                warning('SDRplay device not streaming!');
-            end
-        end
+
         %% Close SDRplay device
         function Close(obj)
             if ~isempty(obj.DevOpen)
