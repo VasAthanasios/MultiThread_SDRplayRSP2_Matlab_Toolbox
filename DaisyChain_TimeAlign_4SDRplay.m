@@ -57,7 +57,7 @@ MySDRplay3.Stream;
 MySDRplay4.Stream;
 disp('If no errors, congratz! The four SDRplay share the same clock! Moving into time alignment');
 %% Filter parameters.
-SR = MySDRplay1.SampleRateMHz;  % Sample Rate.
+SR = MySDRplay1.SampleRateMHz * 1e6;  % Sample Rate.
 N = 250;                        % Filter order.
 Fp_off = 50e3;                  % Space off IF.
 IF1 = 100e3;                    % IF freq.
