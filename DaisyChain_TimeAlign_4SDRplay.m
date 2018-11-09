@@ -25,9 +25,9 @@ BW_KHz = 5000;      % Bandwidth.
 %% SDRplay 1.
 disp('Make sure only 1 SDRplay is connected ...');
 disp('Initiating Daisy Chain, SDRplay connection!');
+MySDRplay1 = sdrplayMT(1);  % Get Set device 1
 MySDRplay1.FrequencyMHz = Fc_MHz;
-MySDRplay1.BandwidthKHz = BW_KHz;MySDRplay1 = sdrplayMT(1);  % Get Set device 1
-
+MySDRplay1.BandwidthKHz = BW_KHz;
 MySDRplay1.ExtClk = 1;      % Enable clock
 disp('Plug in the second SDRplay and press any key!');
 pause;
