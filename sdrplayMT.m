@@ -65,7 +65,6 @@ classdef sdrplayMT < handle
             obj.LNAstate = 0;           % Set SDRplay LNA state based on Grmode, see specification for details.
             obj.Port = 'A';             % Set SDRplay Port, A (default) or B.
             obj.ExtClk = 0;             % Set SDRplay External Clock, 0 disabled.
-            obj.Delay = 0;              % Set SDRplay stream delay in samples.
         end
 
         %% Get dev info when start
